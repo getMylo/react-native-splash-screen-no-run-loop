@@ -26,9 +26,11 @@ RCT_EXPORT_MODULE(SplashScreen)
         addedJsLoadErrorObserver = true;
     }
 
-    while (waiting) {
-        NSDate* later = [NSDate dateWithTimeIntervalSinceNow:0.1];
-        [[NSRunLoop mainRunLoop] runUntilDate:later];
+    if ([NSThread isMainThread]) {
+        while (waiting) {
+            NSDate* later = [NSDate dateWithTimeIntervalSinceNow:0.1];
+            [[NSRunLoop mainRunLoop] runUntilDate:later];
+        }
     }
 }
 

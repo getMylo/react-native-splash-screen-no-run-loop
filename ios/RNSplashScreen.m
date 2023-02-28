@@ -25,13 +25,6 @@ RCT_EXPORT_MODULE(SplashScreen)
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jsLoadError:) name:RCTJavaScriptDidFailToLoadNotification object:nil];
         addedJsLoadErrorObserver = true;
     }
-
-    if ([NSThread isMainThread]) {
-        while (waiting) {
-            NSDate* later = [NSDate dateWithTimeIntervalSinceNow:0.1];
-            [[NSRunLoop mainRunLoop] runUntilDate:later];
-        }
-    }
 }
 
 + (void)showSplash:(NSString*)splashScreen inRootView:(UIView*)rootView {
@@ -42,7 +35,7 @@ RCT_EXPORT_MODULE(SplashScreen)
         loadingView.frame = frame;
     }
     waiting = false;
-    
+
     [rootView addSubview:loadingView];
 }
 
